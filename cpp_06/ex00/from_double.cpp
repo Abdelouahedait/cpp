@@ -4,7 +4,7 @@ void double_to_char(double n)
 {
 	if (isnan(n) || isinf(n))
 		std::cout<< "char: impossible"<<std::endl;
-	else if (isascii(n))
+	else if (isprint(n))
 		std::cout<< "char: '"<< static_cast<char>(n)<<"'"<<std::endl;
 	else
 		std::cout<< "char: Non displayable"<<std::endl;

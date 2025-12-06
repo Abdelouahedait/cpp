@@ -4,15 +4,16 @@
 #include "from_char.hpp"
 #include "from_float.hpp"
 #include "from_double.hpp"
+#include <limits.h>
 
 class ScalarConverter
 {
     private:
         ScalarConverter();
-        public:
-        ScalarConverter(const ScalarConverter &other);
-        ScalarConverter& operator=(const ScalarConverter &other);
-        ~ScalarConverter();
-        static void convert(const std::string &s);
+    public:
+    ScalarConverter(const ScalarConverter &other);
+    ScalarConverter& operator=(const ScalarConverter &other);
+    ~ScalarConverter();
+    static void convert(const std::string &s);
 
 };

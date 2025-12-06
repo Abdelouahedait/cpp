@@ -2,8 +2,9 @@
 
 #include <iostream>
 #include <string>
+#include <stdint.h>
 
-typedef unsigned long uintptr_t;
+// typedef unsigned long uintptr_t;
 
 struct Data
 {

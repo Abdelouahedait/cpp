@@ -4,14 +4,14 @@ void float_to_char(float n)
 {
 	if (isnan(n) || isinf(n))
 		std::cout<< "char: impossible"<<std::endl;
-	else if (isascii(n))
+	else if (isprint(n))
 		std::cout<< "char: '"<< static_cast<char>(n)<<"'"<<std::endl;
 	else
 		std::cout<< "char: Non displayable"<<std::endl;
 }
 void float_to_int(float n)
 {
-	if (n > INT_MAX || n < INT_MIN || isnan(n))
+	if (isnan(n))
 		std::cout<< "int: impossible"<<std::endl;
 	else
 		std::cout<< "int: "<< static_cast<int>(n)<<std::endl;
