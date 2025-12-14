@@ -43,6 +43,7 @@ std::string get_type(const std::string &s)
 void ScalarConverter::convert(const std::string &s)
 {
 	const std::string type = get_type(s);
+	std::cout<< "Input type detected: "<< type <<std::endl;
 	if (type == "char")
 	{
 		std::cout<< "char: '"<< s[0]<<"'" <<std::endl;
@@ -77,5 +78,14 @@ void ScalarConverter::convert(const std::string &s)
 		double_to_float(d, s);
 		to_double(d, s);
 	}
+	else 
+	{
+		std::cout<< "char : impossible"<<std::endl;
+		std::cout<< "int : impossible"<<std::endl;	
+		std::cout<< "float : impossible"<<std::endl;
+		std::cout<< "double : impossible"<<std::endl;
+
+	}
+
 
 }

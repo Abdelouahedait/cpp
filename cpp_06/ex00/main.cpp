@@ -3,7 +3,7 @@
 
 int main(int ac, char* av[])
 {
-    if (ac == 2)
+    if (ac == 2 && isprint(av[1][0]))
     {
         
         ScalarConverter::convert(av[1]);

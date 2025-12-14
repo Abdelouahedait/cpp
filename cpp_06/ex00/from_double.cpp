@@ -18,6 +18,7 @@ void double_to_int(double n)
 }
 void double_to_float(double n, const std::string &s)
 {
+
 	if (s == "nan" || s == "+inf" || s == "-inf")
 	{
 		std::cout<< "float: "<< static_cast<float>(n)<<"f"<<std::endl;
@@ -25,7 +26,8 @@ void double_to_float(double n, const std::string &s)
 	}
 	int z = s.find('.');
 	std::string sub = s.substr(z);
-
+	
+	std::cout << "------------"<<std::endl;
 	if (sub != ".0")
 		std::cout<< "float: "<< static_cast<float>(n)<<"f"<<std::endl;
 	else

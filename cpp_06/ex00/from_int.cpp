@@ -9,10 +9,9 @@ void int_to_char(int n)
 }
 void int_to_float(int n)
 {
-
-	std::cout<< "float: "<< static_cast<float>(n)<<".0"<<std::endl;
+	std::cout<< "float: "<< static_cast<float>(n)<<".0f"<<std::endl;
 }
 void int_to_double(int n)
 {
-	std::cout<< "double: "<< static_cast<double>(n)<<".0f"<<std::endl;
+	std::cout<< "double: "<< static_cast<double>(n)<<".0"<<std::endl;
 }
