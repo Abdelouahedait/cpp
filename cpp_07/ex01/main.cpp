@@ -2,7 +2,7 @@
 
 int main()
 {
-    int tab[] = {0, 1, 2, 3, 4};
+    std::string tab[] = {"Hello", "World", "This", "Is", "CPP"};
     iter(tab, 5, func);
     return 0;
 }
