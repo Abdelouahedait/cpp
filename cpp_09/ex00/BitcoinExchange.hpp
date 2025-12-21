@@ -1,0 +1,27 @@
+#pragma once
+
+#include <iostream>
+#include <fstream>
+#include <map>
+#include <sstream>
+#include <string>
+#include <cstdlib>
+
+#include <cerrno>
+#include <limits>
+
+
+
+
+class BitcoinExchange {
+    public:
+        BitcoinExchange();
+        BitcoinExchange(const BitcoinExchange& other);
+        BitcoinExchange& operator=(const BitcoinExchange& other);
+        ~BitcoinExchange();
+
+        void loadData(const std::string& filename, std::map<std::string, double>& data);
+        void processInput(const std::string& filename, const std::map<std::string, double>& data);
+
+
+};
