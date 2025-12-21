@@ -20,8 +20,6 @@ void Span::addNumber(unsigned int N)
 {
     if (this->N.size() >= this->N.capacity())
         throw std::out_of_range("Span is full");
-    // std::vector<unsigned int>::iterator it = std::find(this->N.begin(), this->N.end(), N);
-    // if (it == this->N.end())
     this->N.push_back(N);
 }
 unsigned int Span::shortestSpan()

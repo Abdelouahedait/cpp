@@ -6,7 +6,7 @@ int main()
     for (int i = 0; i <= 10; ++i)
         vec.push_back(i);
 
-    int v = 0;
+    int v = 4;
     if (easyfind(vec, v))
     std::cout << "Value " << v << " found in vector." << std::endl;
     else
