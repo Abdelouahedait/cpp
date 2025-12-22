@@ -4,4 +4,4 @@
 #include <sstream>
 #include <stack>
 
-int rpn(char **argv, std::stack<int> stack);
+int rpn(int argc, char **argv, std::stack<int> &stack);

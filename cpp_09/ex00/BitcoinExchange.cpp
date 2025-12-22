@@ -16,6 +16,65 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
 }
 BitcoinExchange::~BitcoinExchange(){}
 
+bool BitcoinExchange::isValidDate(const std::string &date) const
+{
+    if (date.empty())
+        return false;
+
+    if (date.length() != 10 || date[4] != '-' || date[7] != '-')
+        return false;
+    
+    std::string yearStr = date.substr(0, 4);
+    std::string monthStr = date.substr(5, 2);
+    std::string dayStr = date.substr(8, 2);
+    
+    char *endptr;
+    
+    long year = std::strtol(yearStr.c_str(), &endptr, 10);
+    if (*endptr != '\0') return false;
+    
+    long month = std::strtol(monthStr.c_str(), &endptr, 10);
+    if (*endptr != '\0') return false;
+    
+    long day = std::strtol(dayStr.c_str(), &endptr, 10);
+    if (*endptr != '\0') return false;
+    
+    if (year < 2009 || year > 9999)
+        return false;
+    if (month < 1 || month > 12)
+        return false;
+    if (day < 1 || day > 31)
+        return false;
+    
+    return true;
+}
+bool BitcoinExchange::isValidValue(const std::string &valueStr, float &value) const
+{
+    if (valueStr.empty())
+        return false;
+    
+    char *endptr;
+    value = std::strtof(valueStr.c_str(), &endptr);
+    
+    
+    if (*endptr != '\0')
+    {
+        std::cerr << "Error: bad input => " << valueStr << std::endl;
+        return false;
+    }
+
+    if (value < 0.0f || value > 1000.0f)
+    {
+        if (value < 0.0f)
+            std::cerr << "Error: not a positive number." << std::endl;
+        else
+            std::cerr << "Error: too large a number." << std::endl;
+        return false;
+    }
+    
+    return true;
+}
+
 void BitcoinExchange::loadData(const std::string& filename, std::map<std::string, double>& data)
 {
     std::ifstream file(filename.c_str());
@@ -29,7 +88,8 @@ void BitcoinExchange::loadData(const std::string& filename, std::map<std::string
         std::cerr << "Error: Invalid data file format." << std::endl;
         return;
     }
-    while (std::getline(file, line)) {
+    while (std::getline(file, line)) 
+    {
         if (line.empty()) continue;
         if (line.length() < 3) continue;
         if (line[4] != '-' || line[7] != '-' || line.length() < 11 || line[10] != ',') {
@@ -51,7 +111,6 @@ void BitcoinExchange::loadData(const std::string& filename, std::map<std::string
     }
     file.close();
 }
-
 
 void BitcoinExchange::processInput(const std::string& filename, const std::map<std::string, double>& _data_)
 {
@@ -76,35 +135,14 @@ void BitcoinExchange::processInput(const std::string& filename, const std::map<s
         }
         std::string date = line.substr(0, delimiterPos);
         std::string valueStr = line.substr(delimiterPos + 3);
-        if (date.length() < 10 || date[4] != '-' || date[7] != '-' || date.length() != 10) {
-            std::cerr << "Error: Invalid date format in input file." << std::endl;
+        if (!isValidDate(date)) {
+            std::cerr << "Error: Invalid date => " << date << std::endl;
             continue;
         }
-        if (valueStr.empty()) {
-            std::cerr << "Error: Missing value in input file." << std::endl;
-            continue;
-        }
-        if (valueStr.find_first_not_of("0123456789.-") != std::string::npos) {
-            std::cerr << "Error: Non-numeric value in input file." << std::endl;
-            continue;
-        }
-        if (valueStr.find('-') != std::string::npos && valueStr.find('-') != 0) {
-            std::cerr << "Error: Invalid negative value format in input file." << std::endl;
-            continue;
-        }
-        if (valueStr.find('.') != std::string::npos) {
-            size_t dotPos = valueStr.find('.');
-            if (dotPos != std::string::npos && valueStr.substr(dotPos + 1).length() > 2) {
-                std::cerr << "Error: Value has more than two decimal places in input file." << std::endl;
-                continue;
-            }
-        }
-        if (valueStr[0] == '-') {
-            std::cerr << "Error: Negative value in input file." << std::endl;
-            continue;
-        }
-        if (std::strtod(valueStr.c_str(), NULL) > 1000) {
-            std::cerr << "Error: Value exceeds maximum limit in input file." << std::endl;
+        float value;
+        if (!isValidValue(valueStr, value))
+        {
+            std::cout<< "Error: Invalid value => " << valueStr << std::endl;
             continue;
         }
         try {

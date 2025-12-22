@@ -1,11 +1,12 @@
 #include "RPN.hpp"
 
-int rpn(char **argv, std::stack<int> stack)
+int rpn(int argc, char **argv, std::stack<int> &stack)
 {
-    std::stringstream ss;
-    ss << argv[1];
-    std::string arg;
-    while (ss >> arg) {
+
+
+    for (int i = 1; i < argc; i++)
+    {
+        std::string arg = argv[i];
         if ((arg.size() > 1 || !isdigit(arg[0])) && arg[0] != '+' && arg[0] != '-' && arg[0] != '*' && arg[0] != '/' ) {
             std::cout << "error: invalid character '" << arg << "'" << std::endl;
             return 1;
@@ -41,5 +42,5 @@ int rpn(char **argv, std::stack<int> stack)
         return 1;
     }
     std::cout << stack.top() << std::endl;
-    return 1;
+    return 0;
 }
